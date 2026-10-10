@@ -1,0 +1,223 @@
+year,state,individuals,breach_type,location,hacking
+2010,IL,657.0,"Loss, Theft",Paper/Films,False
+2010,TX,800.0,Theft,Desktop Computer,False
+2010,MD,1000.0,Hacking/IT Incident,"Desktop Computer, Network Server",True
+2010,MO,1400.0,Theft,Laptop,False
+2010,CO,2500.0,Theft,Other,False
+2010,WA,2698.0,Theft,Desktop Computer,False
+2010,TX,4700.0,Theft,"Laptop, Network Server",False
+2010,MO,9309.0,Theft,Desktop Computer,False
+2010,CA,10100.0,Theft,Desktop Computer,False
+2010,TX,21000.0,Theft,"Other, Other Portable Electronic Device",False
+2011,FL,2200.0,Theft,Laptop,False
+2011,FL,2900.0,Theft,Network Server,False
+2011,NC,6000.0,Hacking/IT Incident,Network Server,True
+2011,AZ,10000.0,Theft,"Other, Other Portable Electronic Device",False
+2011,CA,10190.0,Theft,"Desktop Computer, Network Server",False
+2011,IN,10705.0,Theft,Other,False
+2011,AL,20744.0,Theft,"Desktop Computer, Network Server, Other, Other Portable Electronic Device",False
+2012,FL,750.0,Theft,Paper/Films,False
+2012,OH,850.0,Theft,"Laptop, Network Server",False
+2012,CA,980.0,Theft,Desktop Computer,False
+2012,CA,1112.0,"Loss, Theft, Unauthorized Access/Disclosure, Unknown",Other Portable Electronic Device,False
+2012,GA,1306.0,Theft,Paper/Films,False
+2012,OR,4354.0,"Hacking/IT Incident, Other, Unauthorized Access/Disclosure",Network Server,True
+2012,NC,9953.0,Unauthorized Access/Disclosure,Desktop Computer,False
+2012,LA,10271.0,"Theft, Unauthorized Access/Disclosure",Electronic Medical Record,False
+2012,CT,14511.0,Theft,Other Portable Electronic Device,False
+2013,CA,1400.0,Theft,Desktop Computer,False
+2013,LA,1400.0,Theft,Laptop,False
+2013,ND,2000.0,Theft,Paper/Films,False
+2013,IN,2723.0,Hacking/IT Incident,Desktop Computer,True
+2013,OR,3269.0,Theft,"Desktop Computer, Electronic Medical Record",False
+2013,MD,6400.0,Hacking/IT Incident,Network Server,True
+2013,MO,10000.0,Theft,"Desktop Computer, Network Server",False
+2013,NY,19178.0,Theft,Laptop,False
+2014,TX,810.0,Theft,Desktop Computer,False
+2014,ID,6900.0,Theft,Other Portable Electronic Device,False
+2014,PA,11000.0,"Hacking/IT Incident, Unauthorized Access/Disclosure",Other,True
+2015,AL,1680.0,Theft,Laptop,False
+2015,WA,2000.0,Theft,"Other Portable Electronic Device, Paper/Films",False
+2015,CA,3224.0,Theft,Network Server,False
+2015,MN,4725.0,Theft,Laptop,False
+2015,NY,7448.0,Unauthorized Access/Disclosure,"Other, Paper/Films",False
+2015,OH,8830.0,Hacking/IT Incident,Network Server,True
+2015,NV,12000.0,Theft,"Electronic Medical Record, Laptop, Network Server, Other, Other Portable Electronic Device",False
+2016,TN,500.0,Theft,Paper/Films,False
+2016,TX,625.0,Theft,Other,False
+2016,CA,1025.0,Theft,Other Portable Electronic Device,False
+2016,OR,1506.0,Hacking/IT Incident,Desktop Computer,True
+2016,OR,1980.0,Hacking/IT Incident,Network Server,True
+2016,VA,2000.0,Improper Disposal,Other Portable Electronic Device,False
+2016,MI,2200.0,Loss,Other Portable Electronic Device,False
+2016,MO,3364.0,Hacking/IT Incident,Network Server,True
+2016,CA,4262.0,Theft,Other,False
+2016,PA,5872.0,Hacking/IT Incident,Desktop Computer,True
+2016,PA,16228.0,Hacking/IT Incident,Network Server,True
+2017,WI,742.0,Hacking/IT Incident,Email,True
+2017,OR,871.0,Hacking/IT Incident,"Desktop Computer, Electronic Medical Record, Network Server",True
+2017,PA,960.0,Theft,"Desktop Computer, Laptop",False
+2017,CA,1200.0,Hacking/IT Incident,"Desktop Computer, Electronic Medical Record, Email, Network Server",True
+2017,OH,1716.0,Unauthorized Access/Disclosure,Email,False
+2017,CO,1850.0,Improper Disposal,Paper/Films,False
+2017,ME,1900.0,Unauthorized Access/Disclosure,"Electronic Medical Record, Paper/Films",False
+2017,NV,3898.0,Hacking/IT Incident,"Desktop Computer, Network Server",True
+2017,FL,4391.0,Unauthorized Access/Disclosure,Email,False
+2017,TX,17090.0,Hacking/IT Incident,"Desktop Computer, Network Server",True
+2018,MA,500.0,Theft,Paper/Films,False
+2018,NJ,831.0,Unauthorized Access/Disclosure,Email,False
+2018,TN,1500.0,Hacking/IT Incident,Network Server,True
+2018,CA,3202.0,Theft,Laptop,False
+2018,NM,3677.0,Theft,Other Portable Electronic Device,False
+2018,NJ,4624.0,Hacking/IT Incident,Email,True
+2018,TX,5000.0,Hacking/IT Incident,"Desktop Computer, Email",True
+2018,FL,15129.0,Hacking/IT Incident,Network Server,True
+2018,OH,85874.0,Hacking/IT Incident,Network Server,True
+2019,TX,800.0,Theft,Network Server,False
+2019,FL,1200.0,Hacking/IT Incident,Desktop Computer,True
+2019,FL,1505.0,Unauthorized Access/Disclosure,"Desktop Computer, Electronic Medical Record",False
+2019,FL,1522.0,Hacking/IT Incident,Paper/Films,True
+2019,MN,1938.0,Hacking/IT Incident,Network Server,True
+2019,GA,1950.0,Unauthorized Access/Disclosure,Email,False
+2019,AK,2008.0,Hacking/IT Incident,"Desktop Computer, Electronic Medical Record, Email, Network Server",True
+2019,OR,2952.0,Hacking/IT Incident,Email,True
+2019,CA,6000.0,Hacking/IT Incident,Network Server,True
+2019,TX,6289.0,Theft,Network Server,False
+2019,TX,7186.0,Hacking/IT Incident,Desktop Computer,True
+2019,AZ,7500.0,Unauthorized Access/Disclosure,"Desktop Computer, Network Server, Paper/Films",False
+2019,AL,27000.0,Theft,"Desktop Computer, Electronic Medical Record, Paper/Films",False
+2019,AL,363617.0,Hacking/IT Incident,Network Server,True
+2020,FL,538.0,Unauthorized Access/Disclosure,Email,False
+2020,ID,543.0,Unauthorized Access/Disclosure,Email,False
+2020,WA,544.0,Hacking/IT Incident,Email,True
+2020,TX,818.0,Unauthorized Access/Disclosure,Email,False
+2020,CA,900.0,Hacking/IT Incident,Network Server,True
+2020,CA,974.0,Theft,Desktop Computer,False
+2020,AZ,1000.0,Theft,Network Server,False
+2020,FL,1310.0,Loss,Network Server,False
+2020,MA,1428.0,Hacking/IT Incident,Network Server,True
+2020,FL,1700.0,Theft,Other,False
+2020,CA,2190.0,Theft,Network Server,False
+2020,CO,2793.0,Theft,Other Portable Electronic Device,False
+2020,TX,2835.0,Hacking/IT Incident,Email,True
+2020,CT,5000.0,Hacking/IT Incident,Network Server,True
+2020,CA,5357.0,Unauthorized Access/Disclosure,Email,False
+2020,TX,6169.0,Hacking/IT Incident,Email,True
+2020,NC,7000.0,Hacking/IT Incident,Network Server,True
+2020,WA,8000.0,Hacking/IT Incident,Network Server,True
+2020,VA,8182.0,Hacking/IT Incident,Network Server,True
+2020,CA,8394.0,Hacking/IT Incident,Network Server,True
+2020,VA,11258.0,Hacking/IT Incident,"Email, Network Server",True
+2020,NJ,12414.0,Hacking/IT Incident,Network Server,True
+2020,OH,14419.0,Hacking/IT Incident,Network Server,True
+2020,CT,20727.0,Hacking/IT Incident,Network Server,True
+2020,SC,35498.0,Hacking/IT Incident,"Desktop Computer, Network Server, Other Portable Electronic Device",True
+2021,PA,607.0,Hacking/IT Incident,Email,True
+2021,FL,885.0,Hacking/IT Incident,Network Server,True
+2021,CT,2175.0,Hacking/IT Incident,Email,True
+2021,MI,2745.0,Hacking/IT Incident,Network Server,True
+2021,WA,3000.0,Hacking/IT Incident,Network Server,True
+2021,PA,4235.0,Hacking/IT Incident,Email,True
+2021,IN,5356.0,Hacking/IT Incident,Email,True
+2021,PA,6237.0,Hacking/IT Incident,Email,True
+2021,OR,6493.0,Hacking/IT Incident,Network Server,True
+2021,PA,7359.0,Hacking/IT Incident,Email,True
+2021,PA,10778.0,Hacking/IT Incident,Email,True
+2021,PA,11217.0,Hacking/IT Incident,Email,True
+2021,PA,16673.0,Hacking/IT Incident,Email,True
+2021,PA,18626.0,Hacking/IT Incident,Email,True
+2021,PA,23974.0,Hacking/IT Incident,Email,True
+2021,PA,26054.0,Hacking/IT Incident,Email,True
+2021,IA,26144.0,Hacking/IT Incident,Network Server,True
+2021,PA,47173.0,Unauthorized Access/Disclosure,Email,False
+2021,DC,80915.0,Hacking/IT Incident,Electronic Medical Record,True
+2022,CA,529.0,Theft,Paper/Films,False
+2022,NC,1100.0,Unauthorized Access/Disclosure,Email,False
+2022,MN,1117.0,Hacking/IT Incident,Email,True
+2022,IN,1307.0,Hacking/IT Incident,Email,True
+2022,RI,1558.0,Hacking/IT Incident,Network Server,True
+2022,WI,2612.0,Hacking/IT Incident,Network Server,True
+2022,NY,6843.0,Hacking/IT Incident,Email,True
+2022,CT,10502.0,Hacking/IT Incident,Email,True
+2022,CA,17157.0,Theft,Laptop,False
+2023,NY,765.0,Hacking/IT Incident,Network Server,True
+2023,WI,1000.0,Hacking/IT Incident,Network Server,True
+2023,AZ,1034.0,Theft,Desktop Computer,False
+2023,IL,1127.0,Unauthorized Access/Disclosure,Desktop Computer,False
+2023,ME,1523.0,Hacking/IT Incident,Network Server,True
+2023,OR,1596.0,Hacking/IT Incident,Email,True
+2023,WA,2454.0,Hacking/IT Incident,Network Server,True
+2023,PA,2800.0,Unauthorized Access/Disclosure,Network Server,False
+2023,AZ,3085.0,Hacking/IT Incident,Network Server,True
+2023,MD,4000.0,Theft,Laptop,False
+2023,UT,5327.0,Hacking/IT Incident,Network Server,True
+2023,AZ,6411.0,Hacking/IT Incident,Network Server,True
+2023,TX,7300.0,Hacking/IT Incident,Network Server,True
+2023,LA,9556.0,Hacking/IT Incident,Email,True
+2023,AL,129463.0,Hacking/IT Incident,Network Server,True
+2023,VA,235931.0,Hacking/IT Incident,Network Server,True
+2023,MI,1925397.0,Hacking/IT Incident,Network Server,True
+2024,VA,1074.0,Unauthorized Access/Disclosure,Email,False
+2024,MA,1096.0,Hacking/IT Incident,Network Server,True
+2024,CA,1286.0,Hacking/IT Incident,Network Server,True
+2024,MI,1427.0,Unauthorized Access/Disclosure,Email,False
+2024,NC,1797.0,Hacking/IT Incident,Network Server,True
+2024,TN,2349.0,Hacking/IT Incident,"Email, Network Server",True
+2024,MA,2547.0,Hacking/IT Incident,Email,True
+2024,OH,3318.0,Unauthorized Access/Disclosure,Electronic Medical Record,False
+2024,OR,4109.0,Hacking/IT Incident,Network Server,True
+2024,AL,5280.0,Hacking/IT Incident,Network Server,True
+2024,IN,5500.0,Hacking/IT Incident,Network Server,True
+2024,OR,6500.0,Theft,Paper/Films,False
+2024,NY,10200.0,Hacking/IT Incident,Network Server,True
+2024,NV,11321.0,Hacking/IT Incident,Network Server,True
+2024,IN,12340.0,Hacking/IT Incident,Network Server,True
+2024,WI,13055.0,Hacking/IT Incident,Email,True
+2024,NC,14589.0,Hacking/IT Incident,Network Server,True
+2024,TN,27000.0,Hacking/IT Incident,Network Server,True
+2024,MN,38442.0,Hacking/IT Incident,Email,True
+2024,TX,109684.0,Hacking/IT Incident,Network Server,True
+2024,MN,185606.0,Hacking/IT Incident,Email,True
+2024,NC,240214.0,Hacking/IT Incident,Network Server,True
+2024,PA,618189.0,Hacking/IT Incident,Network Server,True
+2025,MN,501.0,Hacking/IT Incident,Network Server,True
+2025,CA,1001.0,Hacking/IT Incident,Network Server,True
+2025,CA,1001.0,Hacking/IT Incident,Network Server,True
+2025,CO,1559.0,Unauthorized Access/Disclosure,Email,False
+2025,TN,1690.0,Theft,Laptop,False
+2025,OH,1772.0,Hacking/IT Incident,Email,True
+2025,VA,2567.0,Hacking/IT Incident,Network Server,True
+2025,UT,3590.0,Hacking/IT Incident,Email,True
+2025,IN,3915.0,Hacking/IT Incident,Network Server,True
+2025,NC,4969.0,Hacking/IT Incident,Email,True
+2025,PA,5000.0,Hacking/IT Incident,Network Server,True
+2025,CA,15644.0,Hacking/IT Incident,Network Server,True
+2025,PA,17640.0,Hacking/IT Incident,Network Server,True
+2025,SC,25000.0,Hacking/IT Incident,Network Server,True
+2025,MN,134903.0,Hacking/IT Incident,Network Server,True
+2025,TN,173430.0,Hacking/IT Incident,Email,True
+2026,SC,501.0,Hacking/IT Incident,Network Server,True
+2026,NY,548.0,Hacking/IT Incident,Email,True
+2026,TX,878.0,Hacking/IT Incident,Network Server,True
+2026,NY,3183.0,Hacking/IT Incident,Email,True
+2026,MN,3386.0,Hacking/IT Incident,Network Server,True
+2026,TX,3394.0,Hacking/IT Incident,Network Server,True
+2026,WA,3464.0,Hacking/IT Incident,Email,True
+2026,TX,3476.0,Hacking/IT Incident,Network Server,True
+2026,CA,3809.0,Hacking/IT Incident,Network Server,True
+2026,TX,4013.0,Hacking/IT Incident,Network Server,True
+2026,VA,5204.0,Hacking/IT Incident,Email,True
+2026,IN,5900.0,Hacking/IT Incident,Email,True
+2026,TX,6027.0,Hacking/IT Incident,Network Server,True
+2026,FL,6400.0,Hacking/IT Incident,"Electronic Medical Record, Network Server",True
+2026,CA,6658.0,Hacking/IT Incident,Network Server,True
+2026,VA,7019.0,Hacking/IT Incident,Email,True
+2026,NY,8598.0,Hacking/IT Incident,Network Server,True
+2026,CA,8918.0,Hacking/IT Incident,Network Server,True
+2026,TX,9444.0,Hacking/IT Incident,Network Server,True
+2026,WA,10216.0,Hacking/IT Incident,Network Server,True
+2026,PA,11273.0,Hacking/IT Incident,Network Server,True
+2026,TX,11790.0,Hacking/IT Incident,Network Server,True
+2026,TX,13300.0,Hacking/IT Incident,Network Server,True
+2026,WA,20976.0,Hacking/IT Incident,Email,True
+2026,HI,45853.0,Hacking/IT Incident,Email,True

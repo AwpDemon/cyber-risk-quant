@@ -1,0 +1,180 @@
+{
+  "checks": [
+    {
+      "name": "Ransomware cost per event",
+      "benchmark": "Coalition average ransomware claim (2024 / 2025 data)",
+      "published": "$292K / $269K",
+      "published_low": 269000.0,
+      "published_high": 292000.0,
+      "model": 325629.9701765533,
+      "unit": "USD",
+      "sample": "out-of-sample",
+      "firm": "Typical insured SMB (25 staff, $5M revenue)",
+      "note": "Coalition reports insured loss (after retention/limits); the model reports gross loss.",
+      "within_band": false,
+      "model_vs_mid": 1.1618680351
+    },
+    {
+      "name": "BEC/FTF cost per event",
+      "benchmark": "Coalition 2026: BEC avg $27K (31% of claims) and FTF avg $141K (27%), blended",
+      "published": "$80K blended",
+      "published_low": 64055.1724137931,
+      "published_high": 96082.7586206897,
+      "model": 59965.5855028999,
+      "unit": "USD",
+      "sample": "partly in-sample",
+      "firm": "Typical insured SMB (25 staff, $5M revenue)",
+      "note": "BEC response cost was anchored to Coalition's BEC average; the FTF share comes from the same report.",
+      "within_band": false,
+      "model_vs_mid": 0.7643675552
+    },
+    {
+      "name": "Average cost per event (all scenarios)",
+      "benchmark": "Coalition average claim (2024 / 2025 data)",
+      "published": "$115K / $116K",
+      "published_low": 115000.0,
+      "published_high": 116000.0,
+      "model": 114443.8584069541,
+      "unit": "USD",
+      "sample": "out-of-sample",
+      "firm": "Typical insured SMB (25 staff, $5M revenue)",
+      "note": "",
+      "within_band": false,
+      "model_vs_mid": 0.9908652015
+    },
+    {
+      "name": "Ransomware cost per event",
+      "benchmark": "NetDiligence 2025: SME ransomware average incident cost (2020-2024)",
+      "published": "~$630K-$660K",
+      "published_low": 630000.0,
+      "published_high": 660000.0,
+      "model": 640060.6849267071,
+      "unit": "USD",
+      "sample": "post-hoc",
+      "firm": "NetDiligence-average SME (350 staff, $108M revenue)",
+      "note": "SME = revenue < $2B; average SME revenue in the study is $108M.",
+      "within_band": true,
+      "model_vs_mid": 0.9926106017
+    },
+    {
+      "name": "BEC/FTF cost per event",
+      "benchmark": "NetDiligence 2025: SME BEC average incident cost (2024)",
+      "published": "$75K",
+      "published_low": 60000.0,
+      "published_high": 90000.0,
+      "model": 67850.1118652336,
+      "unit": "USD",
+      "sample": "out-of-sample",
+      "firm": "NetDiligence-average SME (350 staff, $108M revenue)",
+      "note": "Band is +/-20% around the published figure.",
+      "within_band": true,
+      "model_vs_mid": 0.9233230726
+    },
+    {
+      "name": "Ransomware recovery cost per event (excl. ransom)",
+      "benchmark": "Sophos 2025: mean recovery cost, 100-250 employees",
+      "published": "$638,536",
+      "published_low": 510828.8,
+      "published_high": 766243.2,
+      "model": 403615.1077848905,
+      "unit": "USD",
+      "sample": "post-hoc",
+      "firm": "Sophos 100-250 employee respondent (175 staff, $35M revenue)",
+      "note": "Survey of organisations hit by ransomware (not insured claims). Band +/-20%.",
+      "within_band": false,
+      "model_vs_mid": 0.6451287702
+    },
+    {
+      "name": "Share of ransomware victims that pay",
+      "benchmark": "Coveware Q2 2024-Q3 2025 payment rates; DBIR 2025 (64% did not pay)",
+      "published": "23%-36%",
+      "published_low": 0.23,
+      "published_high": 0.36,
+      "model": 0.3893333333,
+      "unit": "share",
+      "sample": "out-of-sample",
+      "firm": "Reference posture",
+      "note": "Coalition reports 44% (2024 data) and 14% (2025 data), so published rates span 14%-44%.",
+      "within_band": false,
+      "model_vs_mid": 1.3530268645
+    },
+    {
+      "name": "P(at least one loss event in a year)",
+      "benchmark": "Cyentia IRIS 2022, $10M-$100M revenue: upper-bound model",
+      "published": "< 11.53% (upper bound)",
+      "published_low": 0.0,
+      "published_high": 0.1153,
+      "model": 0.01486,
+      "unit": "probability",
+      "sample": "out-of-sample",
+      "firm": "IRIS $10M-$100M tier firm (100 staff, $32M revenue)",
+      "note": "IRIS counts publicly reported events of all kinds; it only bounds the model from above.",
+      "within_band": true,
+      "model_vs_mid": 0.1288811795
+    },
+    {
+      "name": "Incident frequency: no MFA vs broad MFA",
+      "benchmark": "Marsh 2023: broad MFA -> 1.4x less likely to have a successful attack",
+      "published": "1.4x",
+      "published_low": 1.12,
+      "published_high": 1.68,
+      "model": 1.762425788,
+      "unit": "ratio",
+      "sample": "out-of-sample",
+      "firm": "Reference SMB (50 staff, $10M revenue)",
+      "note": "Marsh compares firms with and without broad MFA among its clients (observational).",
+      "within_band": false,
+      "model_vs_mid": 1.2848344911
+    },
+    {
+      "name": "Incident frequency: 90-day vs 7-day patching",
+      "benchmark": "Marsh 2023: patching high-severity vulns within 7 days -> ~2x lower incident probability",
+      "published": "~2x",
+      "published_low": 1.6,
+      "published_high": 2.4,
+      "model": 1.0285030331,
+      "unit": "ratio",
+      "sample": "out-of-sample",
+      "firm": "Reference SMB (50 staff, $10M revenue)",
+      "note": "Marsh's comparison is observational: fast patchers also tend to do everything else well (confounding).",
+      "within_band": false,
+      "model_vs_mid": 0.5248557562
+    }
+  ],
+  "hhs_dental": {
+    "observed_reportable_rate": 0.00013344106556975664,
+    "observed_breaches_per_year_2020_2025": {
+      "2020": 25,
+      "2021": 19,
+      "2022": 9,
+      "2023": 17,
+      "2024": 23,
+      "2025": 16
+    },
+    "dental_establishments_cbp2022": 136140,
+    "model_reportable_rate_case": 0.00704870724452618,
+    "ratio_case_to_observed": 52.82262408824554,
+    "avg_dental_employees_cbp2022": 7.580116057000147,
+    "model_reportable_rate_avg_office_ref_posture": 0.0034528626301870615,
+    "ratio_avg_office_to_observed": 25.875562484788983,
+    "model_records_quantiles_ge500": {
+      "0.25": 3032.0,
+      "0.5": 5533.0,
+      "0.75": 6951.0,
+      "0.9": 7838.0
+    },
+    "hhs_records_quantiles": {
+      "0.25": 1522.25,
+      "0.5": 4006.5,
+      "0.75": 10167.5,
+      "0.9": 20997.6
+    },
+    "hhs_dental_n": 222,
+    "hhs_records_quantiles_le_case_size": {
+      "0.25": 1122.0,
+      "0.5": 2349.0,
+      "0.75": 4712.5,
+      "0.9": 6531.600000000003
+    }
+  }
+}

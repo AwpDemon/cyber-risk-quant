@@ -1,0 +1,200 @@
+# Bibliography. Every `sources:` id in parameters.yaml must exist here (enforced by tests).
+# "access" records how the figure was read: primary = publisher's own page/PDF;
+# secondary = quoted by another outlet (used only where flagged in parameters.yaml).
+sources:
+  dbir2025:
+    title: Verizon 2025 Data Breach Investigations Report
+    publisher: Verizon Business
+    year: 2025
+    url: https://www.verizon.com/business/resources/reports/2025-dbir-data-breach-investigations-report.pdf
+    access: primary
+    used_for: "Ransomware in 44% of breaches (88% for SMB breaches); median ransom paid $115,000; 64% did not pay; BEC median ~$50,000; initial access: stolen credentials 22%, vuln exploitation 20%, phishing ~15%"
+  ic3_2024:
+    title: FBI Internet Crime Report 2024
+    publisher: FBI Internet Crime Complaint Center (IC3)
+    year: 2025
+    url: https://www.ic3.gov/AnnualReport/Reports/2024_IC3Report.pdf
+    access: primary
+    used_for: "BEC: 21,442 complaints, $2,770,151,146 adjusted losses (mean $129,193 per complaint); Recovery Asset Team 66% success rate"
+  ic3_2023:
+    title: FBI Internet Crime Report 2023
+    publisher: FBI IC3
+    year: 2024
+    url: https://www.ic3.gov/AnnualReport/Reports/2023_IC3Report.pdf
+    access: primary
+    used_for: "BEC: 21,489 complaints, $2,946,830,270; Recovery Asset Team 71% success rate"
+  coveware_2024_2025:
+    title: Coveware quarterly ransomware reports Q2 2024 - Q3 2025
+    publisher: Coveware by Veeam
+    year: 2025
+    url: https://coveware.com/2025/10/insider-threats-loom-while-ransom-payment-rates-plummet/
+    access: primary
+    used_for: "Ransom payment rate 23%-36% by quarter; median payment $110,890-$400,000; median victim 228-362 employees; remote access compromise the dominant initial vector (Q3 2025)"
+  sophos2024:
+    title: The State of Ransomware 2024
+    publisher: Sophos
+    year: 2024
+    url: https://www.sophos.com/en-us/content/state-of-ransomware
+    access: primary
+    used_for: "Backups compromised vs not: paid ransom 67% vs 36%; recovered within a week 25% vs 46%; median recovery cost $3M vs $375K. Root causes: exploited vuln 32%, compromised creds 29%, malicious email 23%, phishing 11%, brute force 3%"
+  sophos2025:
+    title: The State of Ransomware 2025
+    publisher: Sophos
+    year: 2025
+    url: https://www.sophos.com/en-us/blog/the-state-of-ransomware-2025
+    access: primary
+    used_for: "Root causes: exploited vuln 32%, compromised creds 23%, malicious email 19%, phishing 18%, brute force ~6%; 16% recovered within a day, 53% within a week, 97% within three months; mean recovery cost $638,536 for 100-250 employee orgs; median demand $109,670 for $10M-$50M revenue orgs; payments average 85% of demand; 28% of encrypted orgs also had data stolen"
+  meyer2023:
+    title: "Meyer et al., How effective is multifactor authentication at deterring cyberattacks? (arXiv:2305.00945)"
+    publisher: Microsoft
+    year: 2023
+    url: https://arxiv.org/abs/2305.00945
+    access: primary
+    used_for: "MFA reduces risk of account compromise by 99.22% overall and 98.56% with leaked credentials (Azure AD accounts)"
+  iris2022:
+    title: Information Risk Insights Study (IRIS) 2022
+    publisher: Cyentia Institute
+    year: 2022
+    url: https://www.cyentia.com/wp-content/uploads/IRIS-2022_Cyentia.pdf
+    access: primary
+    used_for: "Annual probability of >=1 publicly reported loss event (upper bound) by revenue tier: $10M-$100M 11.53%, $100M-$1B 12.95%, $1B-$10B 17.04%, $10B-$100B 21.93%, >$100B 29.33%; median loss $259K, 95th percentile $52M"
+  iris2025:
+    title: "IRIS 2025: It's About Time"
+    publisher: Cyentia Institute
+    year: 2025
+    url: https://www.cyentia.com/wp-content/uploads/2026/03/IRIS-2025.pdf
+    access: primary
+    used_for: "Typical firm 9.3% annual incident probability (manufacturing 11%); <$100M firms median loss $357K, 95th percentile $9.1M; per-firm incident rate of largest corporations 620x that of smaller businesses"
+  netdiligence2025:
+    title: NetDiligence Cyber Claims Study 2025 Report
+    publisher: NetDiligence
+    year: 2025
+    url: https://netdiligence.com/cyber-claims-study-2025-report/
+    access: primary
+    used_for: "SME (revenue < $2B, average $108M) average total incident cost $264K (2020-2024); SME ransomware average incident cost ~$0.63-0.66M; SME BEC average $75K in 2024; ransomware + BEC = 50% of SME claims"
+  coalition2025:
+    title: Coalition 2025 Cyber Claims Report (2024 data)
+    publisher: Coalition
+    year: 2025
+    url: https://www.coalitioninc.com/blog/cyber-insurance/2025-cyber-claims-report
+    access: primary
+    used_for: "Ransomware 21% of claims, average loss $292K, 44% of victims paid; BEC + FTF 60% of claims; BEC average $35K; FTF average $185K; average claim $115K"
+  coalition2026:
+    title: Coalition 2026 Cyber Claims Report (2025 data)
+    publisher: Coalition
+    year: 2026
+    url: https://www.coalitioninc.com/blog/cyber-insurance/2026-cyber-claims-report
+    access: primary
+    used_for: "Ransomware average loss $269K; 86% refused to pay; dual extortion 70% of ransomware claims; BEC + FTF 58% of incidents; FTF 27% of claims, average $141K, 52% originated from BEC; BEC average $27K; average claim $116K"
+  ibm2024:
+    title: Cost of a Data Breach Report 2024
+    publisher: IBM / Ponemon Institute
+    year: 2024
+    url: https://www.ibm.com/reports/data-breach
+    access: primary
+    used_for: "Global average breach cost $4.88M; healthcare $9.77M; $169 per record (all sizes, not used for SMB per-record cost); orgs with an IR team and tested plan reported materially lower average cost ($3.26M vs $5.29M, secondary via SecurityWeek)"
+  knowbe4_2025:
+    title: 2025 Phishing by Industry Benchmarking Report
+    publisher: KnowBe4
+    year: 2025
+    url: https://www.knowbe4.com/press/knowbe4-report-reveals-security-training-reduces-global-phishing-click-rates-by-86
+    access: primary
+    used_for: "Baseline phish-prone percentage 33.1% (24.6% for 1-250 employee orgs); falls 40% after 90 days and 86% after 12 months of training (vendor simulation data)"
+  marsh2023:
+    title: Using data to prioritize cybersecurity investments
+    publisher: Marsh McLennan Cyber Risk Analytics Center
+    year: 2023
+    url: https://www.marsh.com/en/corp/about/news/groundbreaking-research-from-marsh-mclennan-reveals-direct-link-.html
+    access: primary (press release; full report not read)
+    used_for: "Broad MFA (critical data + all remote access + admin accounts) -> 1.4x less likely to have a successful attack; patching high-severity vulns within 7 days -> ~2x lower incident probability, implemented by only 24%; EDR, MFA and PAM are the controls insurers most often recommend"
+  marsh2025:
+    title: "Cybersecurity signals: Connecting controls and incident outcomes"
+    publisher: Marsh McLennan
+    year: 2025
+    url: https://www.marsh.com/en/services/cyber-risk/insights/cybersecurity-signals.html
+    access: secondary (Industrial Cyber summary)
+    used_for: "IR planning, EDR and MFA among top control areas; MFA adoption now 90-100% in their sample so it differentiates less"
+  naic2025:
+    title: Report on the Cybersecurity Insurance Market (2024 data)
+    publisher: National Association of Insurance Commissioners
+    year: 2025
+    url: https://content.naic.org/sites/default/files/inline-files/2025_Cybersecurity_Insurance%20Report.pdf
+    access: primary
+    used_for: "4,368,614 policies in force; nearly 50,000 claims reported in 2024; $9.14B direct written premium"
+  naic2024:
+    title: Report on the Cybersecurity Insurance Market (2023 data)
+    publisher: NAIC
+    year: 2024
+    url: https://content.naic.org/sites/default/files/cmte-h-cyber-wg-2024-cyber-ins-report.pdf
+    access: primary
+    used_for: "4,369,741 policies in force; 33,561 claims reported in 2023"
+  aon2024:
+    title: "U.S. Cyber Market Update: 2023 U.S. Cyber Insurance Profits and Performance"
+    publisher: Aon
+    year: 2024
+    url: https://www.aon.com/getmedia/4afa8654-6534-48c3-91c1-b27d57170cdb/20240806-US-Cyber-Market-Update.pdf
+    access: primary
+    used_for: "2023 U.S. cyber loss ratio (incl. DCC) 42%; standalone 44%; package 36%"
+  cisa_kev:
+    title: Known Exploited Vulnerabilities Catalog
+    publisher: CISA
+    year: 2026
+    url: https://www.cisa.gov/known-exploited-vulnerabilities-catalog
+    access: dataset (downloaded by scripts/download_data.py)
+    used_for: "dateAdded for every KEV CVE; knownRansomwareCampaignUse flag"
+  nvd:
+    title: NVD CVE API 2.0
+    publisher: NIST National Vulnerability Database
+    year: 2026
+    url: https://nvd.nist.gov/developers/vulnerabilities
+    access: dataset (this product uses data from the NVD API but is not endorsed or certified by the NVD)
+    used_for: "Publication date of each KEV CVE (hasKev filter)"
+  hhs_ocr:
+    title: HHS OCR Breach Portal (breaches affecting 500+ individuals)
+    publisher: U.S. Department of Health and Human Services, Office for Civil Rights
+    year: 2026
+    url: https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf
+    access: dataset
+    used_for: "Dental-practice breach counts, breach types and individuals affected (validation)"
+  vcdb:
+    title: VERIS Community Database (VCDB)
+    publisher: Verizon RISK Team and contributors (CC BY-SA 4.0)
+    year: 2026
+    url: https://github.com/vz-risk/VCDB
+    access: dataset
+    used_for: "Action/vector mix for publicly disclosed incidents at small victims (1-100 employees), 2015-2025"
+  census_cbp2022:
+    title: County Business Patterns 2022 (U.S. file)
+    publisher: U.S. Census Bureau
+    year: 2024
+    url: https://www.census.gov/programs-surveys/cbp.html
+    access: dataset
+    used_for: "Establishment counts: offices of dentists (NAICS 621210) 136,140; offices of lawyers (541110) 166,972"
+  cri2023:
+    title: U.S. Small Business Multi-Factor Authentication (MFA) Study 2023
+    publisher: Cyber Readiness Institute
+    year: 2023
+    url: https://cyberreadinessinstitute.org/wp-content/uploads/CRI-Second-Annual-MFA-Survey-Report-2023.pdf
+    access: primary
+    used_for: "Just over half (52-53%) of U.S. SMBs implement MFA; only 34% require it; MFA required for email ~31% and remote access ~30%"
+  atbay_mfa:
+    title: How MFA Can Bring Out the Best in Your Cyber Insurance Plan
+    publisher: At-Bay
+    year: 2023
+    url: https://www.at-bay.com/articles/how-multi-factor-authentication-can-bring-out-best-cyber-insurance/
+    access: primary
+    used_for: "Any policy that covers ransomware is highly likely to require MFA; healthcare, law and manufacturing are very likely to need MFA before binding; coverage levels contingent on which services have MFA"
+  marsh_hygiene:
+    title: Cyber hygiene controls critical as cyber threats intensify
+    publisher: Marsh
+    year: 2024
+    url: https://www.marsh.com/en/services/cyber-risk/insights/critical-cyber-hygiene-controls.html
+    access: primary
+    used_for: "Prioritises MFA, EDR, secured/encrypted/tested backups, PAM, email filtering; firms lacking controls face non-renewal, loss of preferred coverage, and ransomware limitations"
+  coalition2024:
+    title: Coalition 2024 Cyber Claims Report (2023 data)
+    publisher: Coalition
+    year: 2024
+    url: https://www.coalitioninc.com/announcements/coalition-claims-report-2024
+    access: primary
+    used_for: "BEC + FTF 56% of 2023 claims; average claim $100K; ransomware average >$263K; businesses with internet-exposed RDP 2.5x more likely to have a claim; Cisco ASA ~5x; Fortinet ~2x"

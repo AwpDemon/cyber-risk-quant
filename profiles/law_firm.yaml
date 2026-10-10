@@ -1,0 +1,50 @@
+# HYPOTHETICAL firm. Not a real business and not based on any client's data.
+id: law_firm
+firm:
+  name: Law firm (hypothetical)
+  industry: legal
+  description: 20-attorney firm (real estate, estate planning, litigation). Microsoft 365, cloud practice management, trust account used for real-estate closings.
+  employees: 45
+  endpoints: 60
+  annual_revenue: 9500000
+  records_held: 30000         # clients, estate beneficiaries, closing parties (SSNs, bank details)
+  sensitive_records: true
+  regulated: true             # state breach-notification laws, bar confidentiality duties
+  operational_dependency: 0.6   # some legal work continues on paper; deadlines still bite
+policy:
+  aggregate_limit: 2000000
+  retention: 25000
+  social_engineering_sublimit: 250000
+answers:
+  mfa_email: enforced_all
+  mfa_remote: all_mfa
+  mfa_privileged: some
+  edr: high_business_hours
+  backups: offsite_online
+  patching: d30
+  eol_systems: none
+  email_security: one
+  training: annual
+  payment_verification: informal
+  ir_plan: written
+  asset_inventory: partial
+  encryption: enforced
+  vendor_access: partial
+  logging: retained_90d
+notes: |
+  **Underwriter's read.** A mostly mature firm (MFA everywhere, EDR, a written IR plan) held back by one knock-out: the cloud
+  backup can be reached and deleted with normal admin credentials. Sophos found attackers try to compromise backups in 94%
+  of attacks. Fixing it moves the firm from refer/restricted to Standard (score 66 -> 74).
+
+  **What the numbers say.**
+  - BEC/funds-transfer fraud is the largest single component of expected loss (41%, about equal to ransomware). That is
+    what you would expect for a firm that moves client money through a trust account for real-estate closings.
+  - The best fix by expected loss and by cost-efficiency is a documented call-back and dual-approval procedure for payment
+    changes: $347/yr ALE reduction and a 15.6% lower indicated premium for an illustrative $500 process change. The evidence
+    behind its effect size is the weakest in the model (labelled "weak"), so the number is an argument for the control,
+    not a measurement of it.
+  - Faster patching (30 -> 7 days) is worth almost nothing here ($8/yr). The firm already patches in 30 days, and the
+    exploit route is a small part of a BEC-heavy risk.
+
+  **Policy structure matters as much as controls.** The $250K social-engineering sublimit caps what the policy pays on a
+  fraudulent wire. A real-estate closing wire can exceed that, so part of the BEC tail stays with the firm whatever its controls.

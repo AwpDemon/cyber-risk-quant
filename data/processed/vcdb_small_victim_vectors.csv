@@ -1,0 +1,6 @@
+bucket,incidents,share
+error_misuse_physical,521,0.6521
+other_malicious,168,0.2103
+credentials,41,0.0513
+email_social,36,0.0451
+exploit,33,0.0413

@@ -1,0 +1,131 @@
+{
+  "kev": {
+    "n_cves": 832,
+    "published_from": "2022-01-04",
+    "published_to": "2026-10-04",
+    "share_listed_by_day": {
+      "0": 0.2716,
+      "7": 0.5048,
+      "14": 0.5745,
+      "30": 0.6454,
+      "60": 0.7356,
+      "90": 0.7752,
+      "180": 0.8594,
+      "365": 0.9327
+    },
+    "median_lag_days": 7.0,
+    "share_known_ransomware_use": 0.1875,
+    "top_vendors": {
+      "Microsoft": 140,
+      "Apple": 52,
+      "Google": 41,
+      "Cisco": 39,
+      "Ivanti": 25,
+      "Fortinet": 24,
+      "Linux": 19,
+      "Adobe": 17,
+      "Citrix": 17,
+      "Synacor": 15
+    }
+  },
+  "hhs": {
+    "records": 8009,
+    "years": [
+      2009,
+      2026
+    ],
+    "dental_breaches": 222,
+    "dental_by_year": {
+      "2010": 10,
+      "2011": 7,
+      "2012": 9,
+      "2013": 8,
+      "2014": 3,
+      "2015": 7,
+      "2016": 11,
+      "2017": 10,
+      "2018": 9,
+      "2019": 14,
+      "2020": 25,
+      "2021": 19,
+      "2022": 9,
+      "2023": 17,
+      "2024": 23,
+      "2025": 16,
+      "2026": 25
+    },
+    "dental_hacking_share_2019_on": 0.7973,
+    "dental_individuals_quantiles": {
+      "0.25": 1522.25,
+      "0.5": 4006.5,
+      "0.75": 10167.5,
+      "0.9": 20997.6
+    }
+  },
+  "vcdb_small_victim_vectors": {
+    "error_misuse_physical": 0.6521,
+    "other_malicious": 0.2103,
+    "credentials": 0.0513,
+    "email_social": 0.0451,
+    "exploit": 0.0413
+  },
+  "vcdb_small_victim_incidents": 799,
+  "cbp2022": {
+    "dentists": {
+      "naics": "621210",
+      "establishments": 136140,
+      "employees": 1031957
+    },
+    "lawyers": {
+      "naics": "541110",
+      "establishments": 166972,
+      "employees": 1078148
+    },
+    "manufacturing": {
+      "naics": "31----",
+      "establishments": 285500,
+      "employees": 12188330
+    }
+  },
+  "fits": {
+    "sophos_recovery_time": {
+      "median_all": 6.104272683270555,
+      "sigma": 1.8190704668430937,
+      "median_good_backups": 8.40314603672717,
+      "median_bad_backups": 23.87554071419665,
+      "bad_backup_multiplier": 2.841262142755241,
+      "check_p_within_90d": 0.9304603597963786
+    },
+    "bec_transfer": {
+      "median": 50000.0,
+      "mean": 129192.75935080682,
+      "sigma": 1.3778842782857466
+    },
+    "iris_size_elasticity": 0.11563630949576363,
+    "reference_frequencies": {
+      "ransomware": {
+        "low": 0.001612866758006939,
+        "mode": 0.0024035082980551725,
+        "high": 0.0036052624470827585
+      },
+      "bec": {
+        "low": 0.004608190737162683,
+        "mode": 0.0068671665658719214,
+        "high": 0.010300749848807881
+      },
+      "data_breach": {
+        "low": 0.0014592604001015164,
+        "mode": 0.002174602745859442,
+        "high": 0.0032619041187891625
+      },
+      "_total": {
+        "2023": 0.007680317895271138,
+        "2024": 0.011445277609786536
+      }
+    },
+    "ransom_reference": {
+      "median_paid": 93219.5,
+      "ref_revenue": 22360679.774997897
+    }
+  }
+}

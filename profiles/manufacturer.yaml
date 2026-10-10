@@ -1,0 +1,50 @@
+# HYPOTHETICAL firm. Not a real business and not based on any client's data.
+id: manufacturer
+firm:
+  name: Manufacturer (hypothetical)
+  industry: manufacturing
+  description: Precision-parts manufacturer, one plant. ERP and MES on-prem; machine vendors reach plant HMIs through a remote-support tool.
+  employees: 140
+  endpoints: 160
+  annual_revenue: 38000000
+  records_held: 1500          # current and former employees (SSNs, payroll)
+  sensitive_records: true
+  regulated: false
+  operational_dependency: 0.9   # production scheduling and shipping run on ERP/MES
+policy:
+  aggregate_limit: 3000000
+  retention: 50000
+  social_engineering_sublimit: 250000
+answers:
+  mfa_email: enforced_all
+  mfa_remote: partial
+  mfa_privileged: some
+  edr: partial
+  backups: immutable_untested
+  patching: d30
+  eol_systems: unsupported
+  email_security: both
+  training: annual
+  payment_verification: documented
+  ir_plan: none
+  asset_inventory: partial
+  encryption: partial
+  vendor_access: none
+  logging: none
+notes: |
+  **Underwriter's read.** Good email and payment controls and an immutable (but untested) backup. The knock-out is remote
+  access: machine vendors reach plant HMIs through a remote-support tool without MFA. Coveware's 2025 data puts
+  remote-access compromise behind more than half of ransomware incidents. End-of-life Windows on plant HMIs is the second
+  finding an underwriter will circle.
+
+  **What the numbers say.**
+  - Ransomware is 85% of expected loss. With ERP/MES running production, downtime is the loss.
+  - This firm has the fattest tail of the three: P(annual loss > $1M) is 0.042%, against 0.017% for the dental clinic.
+  - EDR is again the largest single fix ($932/yr), but at ~$23K/yr for 160 endpoints it has the lowest return per dollar
+    (0.04). MFA/PAM on admin accounts gives $389/yr for ~$1.5K and is the most cost-efficient fix here.
+  - The tornado chart shows the estimate is most sensitive to the size elasticities of frequency and severity. The model is
+    extrapolating from small-business claims data to a 140-person firm, and those two parameters carry that extrapolation.
+    Real underwriting of an account this size would lean on the carrier's own mid-market loss data.
+
+  **Not modelled.** Operational technology (PLCs, HMIs) as a separate attack surface, and contingent business interruption
+  from a key supplier's outage. Both matter for manufacturers.

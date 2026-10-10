@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyber-risk-quant"
+version = "0.2.0"
+description = "FAIR-style cyber risk quantification and cyber-insurance underwriting-readiness tool for SMBs"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Ali Askari" }]
+dependencies = [
+  "numpy==2.5.3",
+  "scipy==1.18.1",
+  "pandas==3.0.6",
+  "matplotlib==3.11.2",
+  "openpyxl==3.1.5",
+  "PyYAML==6.0.3",
+  "requests==2.34.2",
+]
+
+[project.optional-dependencies]
+app = ["streamlit==1.65.0"]
+dev = ["pytest==9.1.1", "ruff==0.17.0"]
+
+[project.scripts]
+crq = "crq.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+crq = ["data/*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 140
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B905"]

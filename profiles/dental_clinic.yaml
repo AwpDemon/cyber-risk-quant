@@ -1,0 +1,57 @@
+# HYPOTHETICAL firm. Not a real business and not based on any client's data.
+# The answer pattern is an illustrative composite of common small-practice gaps.
+id: dental_clinic
+firm:
+  name: Dental clinic (hypothetical)
+  industry: healthcare
+  description: Three-dentist general practice, one location. Practice-management and imaging software on a local server; the software vendor supports it over remote desktop.
+  employees: 18
+  endpoints: 24
+  annual_revenue: 3200000
+  records_held: 9000          # active + inactive patients (PHI, insurance IDs, some SSNs)
+  sensitive_records: true
+  regulated: true             # HIPAA covered entity
+  operational_dependency: 0.85  # scheduling, charting, imaging and billing all stop
+policy:
+  aggregate_limit: 1000000
+  retention: 10000
+  social_engineering_sublimit: 100000
+answers:
+  mfa_email: some_users
+  mfa_remote: none
+  mfa_privileged: none
+  edr: av_only
+  backups: offsite_online
+  patching: d90
+  eol_systems: isolated
+  email_security: basic
+  training: none
+  payment_verification: informal
+  ir_plan: none
+  asset_inventory: partial
+  encryption: partial
+  vendor_access: none
+  logging: none
+notes: |
+  **Underwriter's read.** Three knock-outs (MFA on email, MFA on remote access, an offline or immutable backup) put this
+  practice in the refer/restricted tier. As submitted, most carriers would decline it, or require fixes before binding or add a
+  ransomware sublimit. The vendor's remote-desktop access to the practice server is the single most typical finding in a
+  small-practice renewal.
+
+  **What the numbers say.**
+  - Ransomware is 75% of the expected loss. The clinic runs on one server, depends heavily on it (85% of revenue stops),
+    and has no offline backup, so a ransomware event drives long downtime and a high chance of paying.
+  - Fixing only the three knock-outs cuts ALE from $2,720 to $1,504 and the indicated premium from $5,704 to $3,077. It
+    also lowers P(annual loss > $100K) from 0.70% to 0.46% and the worst-1%-of-years average (TVaR99) from $258K to $148K.
+  - The best single fix by expected loss is EDR ($1,148/yr), not a knock-out. EDR acts after entry on every ransomware route,
+    while each MFA control blocks one route.
+
+  **The honest ROI point.** The three knock-out fixes cost an illustrative ~$10K a year and reduce ALE by ~$1.2K. On expected
+  loss alone they don't pay for themselves. Phishing training is the only fix here whose ALE reduction exceeds its cost
+  (1.03x). The real case for the knock-outs is different. They decide whether the practice can buy cover at all and on
+  what terms. They also cut the tail: a TVaR99 of $258K is about 8% of revenue, a hit that would be survivable only if insured.
+
+  **Caveat specific to this case.** The claims-anchored frequency implies ~26x more HIPAA-reportable incidents for an
+  average dental office than appear on the HHS breach portal (see docs/VALIDATION.md). If the HHS count is closer to the truth
+  for dental practices, this ALE is too high. The ranking of fixes would not change, because it depends on relative
+  vulnerability rather than on the frequency anchor.

@@ -1,0 +1,468 @@
+# Parameter registry for the FAIR engine.
+#
+# basis:
+#   sourced    - number read directly from a cited public study
+#   derived    - computed by this repo from cited numbers or public data (see src/crq/calibration.py)
+#   assumption - analyst judgement; always a range, often anchored to a source listed in `sources`
+#
+# Distributions: pert(low, mode, high) | lognormal (p05, p95) | uniform(low, high) | fixed(value)
+# Money in USD. Frequencies are loss events per firm-year.
+
+parameters:
+
+  # ---------------------------------------------------------------- frequency
+  lef_ref.ransomware:
+    description: Ransomware/extortion claims per policy-year for the reference insured SMB
+    dist: pert
+    low: 0.0016
+    mode: 0.0024
+    high: 0.0036
+    unit: events/yr
+    basis: derived
+    sources: [naic2024, naic2025, coalition2025]
+    note: "NAIC claims/policies (0.77% in 2023, 1.14% in 2024) x Coalition share of claims that are ransomware (21%). High end = 1.5x 2024 to allow for unreported/below-retention events."
+  lef_ref.bec:
+    description: BEC / funds-transfer-fraud claims per policy-year for the reference insured SMB
+    dist: pert
+    low: 0.0046
+    mode: 0.0069
+    high: 0.0103
+    unit: events/yr
+    basis: derived
+    sources: [naic2024, naic2025, coalition2025]
+    note: "NAIC claim frequency x Coalition share of claims that are BEC + FTF (60%)."
+  lef_ref.data_breach:
+    description: Non-ransomware data-breach / other claims per policy-year for the reference insured SMB
+    dist: pert
+    low: 0.0015
+    mode: 0.0022
+    high: 0.0033
+    unit: events/yr
+    basis: derived
+    sources: [naic2024, naic2025, coalition2025]
+    note: "NAIC claim frequency x the remaining 19% of Coalition claims."
+  freq.ref_employees:
+    description: Headcount of the 'reference' insured SMB the claim frequencies describe
+    dist: pert
+    low: 10
+    mode: 25
+    high: 60
+    unit: employees
+    basis: assumption
+    sources: [naic2025]
+    note: "4.37M U.S. cyber policies in force include many micro-business package endorsements, so the average policyholder is small. Not directly published."
+  freq.size_elasticity:
+    description: Elasticity of event frequency to firm size (frequency proportional to size^beta)
+    dist: pert
+    low: 0.05
+    mode: 0.12
+    high: 0.5
+    unit: ""
+    basis: derived
+    sources: [iris2022, iris2025]
+    note: "Mode = slope of log(event rate) on log(revenue) across IRIS 2022 revenue tiers (0.116). High end reflects IRIS 2025: per-firm rate for the largest corporations is 620x that of smaller businesses."
+
+  # industry multipliers (relative to an average insured SMB)
+  ind.healthcare.ransomware: {description: Healthcare ransomware frequency multiplier, dist: pert, low: 0.8, mode: 1.1, high: 1.5, basis: assumption, sources: [ibm2024], note: "Healthcare is the costliest breach industry (IBM) and a frequent ransomware target; no SMB-specific multiplier is published."}
+  ind.healthcare.bec: {description: Healthcare BEC frequency multiplier, dist: pert, low: 0.6, mode: 0.9, high: 1.2, basis: assumption, note: "Dental/medical offices make fewer large outbound wires than law firms or manufacturers."}
+  ind.healthcare.data_breach: {description: Healthcare data-breach frequency multiplier, dist: pert, low: 1.0, mode: 1.5, high: 2.5, basis: assumption, sources: [hhs_ocr], note: "PHI is valuable and HIPAA makes breaches reportable; HHS lists ~700+ provider/plan breaches a year."}
+  ind.legal.ransomware: {description: Legal ransomware frequency multiplier, dist: pert, low: 0.8, mode: 1.0, high: 1.3, basis: assumption}
+  ind.legal.bec: {description: Legal BEC frequency multiplier, dist: pert, low: 1.0, mode: 1.5, high: 2.2, basis: assumption, note: "Law firms move client funds through trust/escrow accounts (real-estate closings, settlements) - a classic wire-fraud target."}
+  ind.legal.data_breach: {description: Legal data-breach frequency multiplier, dist: pert, low: 1.0, mode: 1.3, high: 2.0, basis: assumption, note: "Firms hold confidential client files and SSNs (estate, family, immigration matters)."}
+  ind.manufacturing.ransomware: {description: Manufacturing ransomware frequency multiplier, dist: pert, low: 1.0, mode: 1.3, high: 1.8, basis: assumption, sources: [iris2025], note: "IRIS 2025: typical manufacturing firm 11% vs 9.3% overall incident probability (1.18x); ransomware reports consistently rank manufacturing as the most-hit sector."}
+  ind.manufacturing.bec: {description: Manufacturing BEC frequency multiplier, dist: pert, low: 0.8, mode: 1.1, high: 1.5, basis: assumption, note: "Supplier invoices / vendor bank-detail changes."}
+  ind.manufacturing.data_breach: {description: Manufacturing data-breach frequency multiplier, dist: pert, low: 0.4, mode: 0.7, high: 1.0, basis: assumption, note: "Little consumer PII; mostly employee records."}
+
+  # ---------------------------------------------------------- attack vectors
+  rw.vec.credentials:
+    description: Share of ransomware entries via compromised credentials / brute force
+    dist: pert
+    low: 0.25
+    mode: 0.29
+    high: 0.35
+    basis: sourced
+    sources: [sophos2025, sophos2024, dbir2025]
+    note: "Sophos 2025: compromised creds 23% + brute force ~6%; Sophos 2024: 29% + 3%; DBIR 2025 stolen creds 22% of breaches."
+  rw.vec.exploit:
+    description: Share of ransomware entries via exploited vulnerabilities
+    dist: pert
+    low: 0.28
+    mode: 0.32
+    high: 0.36
+    basis: sourced
+    sources: [sophos2025, sophos2024]
+    note: "Sophos: 32% in both 2024 and 2025 (36% in 2023)."
+  rw.vec.email:
+    description: Share of ransomware entries via malicious email / phishing
+    dist: pert
+    low: 0.30
+    mode: 0.36
+    high: 0.40
+    basis: sourced
+    sources: [sophos2025, sophos2024]
+    note: "Sophos 2025: malicious email 19% + phishing 18%; 2024: 23% + 11%."
+  rw.vec.other:
+    description: Share of ransomware entries via other routes (supply chain, downloads, insider)
+    dist: pert
+    low: 0.0
+    mode: 0.03
+    high: 0.08
+    basis: assumption
+    sources: [sophos2025]
+    note: "Residual after the three named root causes."
+  db.vec.non_malicious:
+    description: Share of non-ransomware breaches caused by error, misuse or physical loss (no modelled control helps)
+    dist: pert
+    low: 0.20
+    mode: 0.40
+    high: 0.65
+    basis: derived
+    sources: [vcdb, hhs_ocr]
+    note: "VCDB small victims 2015-2025 (non-ransomware): 65% error/misuse/physical. HHS dental breaches since 2019: only ~20% are not hacking/IT. The truth for a modern SMB is between the two; publicly disclosed datasets over-represent lost laptops and misdirected mail."
+  db.split.credentials:
+    description: Of malicious non-ransomware breaches, share entering via stolen credentials / brute force
+    dist: fixed
+    value: 0.3725
+    basis: derived
+    sources: [vcdb]
+    note: "VCDB small victims: 41 credential / 33 exploit / 36 email-social incidents with a known entry (n=110)."
+  db.split.exploit:
+    description: Of malicious non-ransomware breaches, share entering via exploited vulnerabilities
+    dist: fixed
+    value: 0.2999
+    basis: derived
+    sources: [vcdb]
+  bec.vec.account_takeover:
+    description: Share of BEC/FTF events that start with takeover of the firm's own mailbox
+    dist: pert
+    low: 0.30
+    mode: 0.45
+    high: 0.60
+    basis: assumption
+    sources: [coalition2026]
+    note: "Coalition 2026: 52% of FTF originated from BEC; 39% of FTF had no confirmed email compromise."
+  bec.vec.impersonation:
+    description: Share of BEC/FTF events that are impersonation / spoofed-domain pretexting
+    dist: pert
+    low: 0.20
+    mode: 0.30
+    high: 0.40
+    basis: assumption
+    sources: [coalition2026, dbir2025]
+    note: "Remainder (vendor mailbox compromise, fraudulent instructions sent straight to banks) is only addressable by payment verification."
+
+  # ------------------------------------------------------ control effectiveness
+  eff.mfa:
+    description: Reduction in credential-based intrusions when MFA fully covers the targeted accounts
+    dist: pert
+    low: 0.70
+    mode: 0.90
+    high: 0.99
+    basis: assumption
+    sources: [meyer2023, marsh2023]
+    note: "Microsoft measured 99.22% (98.56% with leaked credentials) for account compromise. Discounted for MFA bypass (adversary-in-the-middle kits, token theft, push fatigue, legacy protocols) and for SMS/weak factors."
+  eff.email_security:
+    description: Reduction in email-borne intrusions from advanced filtering/sandboxing + DMARC enforcement
+    dist: pert
+    low: 0.20
+    mode: 0.40
+    high: 0.60
+    basis: assumption
+    sources: [marsh2023]
+    note: "Insurers and Marsh list email filtering among key controls; no clean public effect size."
+  eff.training:
+    description: Reduction in successful phishing from regular training + simulations
+    dist: pert
+    low: 0.15
+    mode: 0.35
+    high: 0.60
+    basis: assumption
+    sources: [knowbe4_2025]
+    note: "KnowBe4: simulated click rate falls 40% after 90 days and 86% after 12 months. Vendor simulation data overstates real-world effect, hence the lower mode."
+  eff.patching_realization:
+    description: Share of the KEV-derived exposure reduction a patch SLA actually delivers
+    dist: pert
+    low: 0.60
+    mode: 0.80
+    high: 0.95
+    basis: assumption
+    sources: [cisa_kev, marsh2023]
+    note: "KEV listing lags real exploitation and SLAs are not always met. Cross-check: Marsh found 7-day patching ~2x lower incident probability (observational, confounded)."
+  eff.edr_prevent:
+    description: Share of intrusions stopped before ransomware deployment by monitored EDR
+    dist: pert
+    low: 0.20
+    mode: 0.45
+    high: 0.70
+    basis: assumption
+    sources: [marsh2023, marsh2025]
+    note: "Marsh: EDR among the controls with the strongest claims signal; each 25% increase in deployment correlates with lower breach likelihood. No public effect size."
+  eff.edr_breach:
+    description: Share of malicious data-breach intrusions stopped by EDR
+    dist: pert
+    low: 0.05
+    mode: 0.15
+    high: 0.30
+    basis: assumption
+    note: "Mailbox/cloud-app breaches often never touch an endpoint EDR watches."
+  eff.edr_contain:
+    description: Reduction in encrypted footprint (and so recovery effort) when EDR is present
+    dist: pert
+    low: 0.10
+    mode: 0.30
+    high: 0.50
+    basis: assumption
+  eff.mfa_privileged:
+    description: Reduction in escalation-to-domain-wide ransomware from MFA/PAM on admin accounts
+    dist: pert
+    low: 0.10
+    mode: 0.25
+    high: 0.40
+    basis: assumption
+    sources: [marsh2023]
+    note: "Marsh lists PAM among the three controls insurers most often recommend."
+  eff.payment_verification:
+    description: Share of fraudulent transfer attempts stopped by documented out-of-band (call-back) verification
+    dist: pert
+    low: 0.40
+    mode: 0.65
+    high: 0.85
+    basis: assumption
+    sources: [coalition2026]
+    note: "Weak public evidence; social-engineering coverage commonly requires call-back verification. Coalition: 20% of FTF events used instructions sent directly to banks."
+  eff.ir_cost:
+    description: Reduction in response cost with a documented and tested IR plan
+    dist: pert
+    low: 0.10
+    mode: 0.20
+    high: 0.35
+    basis: assumption
+    sources: [ibm2024, marsh2025]
+    note: "IBM 2024 (secondary): orgs with an IR team and tested plan averaged $3.26M vs $5.29M (correlational, large orgs)."
+  eff.ir_downtime:
+    description: Reduction in recovery time with a documented and tested IR plan
+    dist: pert
+    low: 0.05
+    mode: 0.15
+    high: 0.30
+    basis: assumption
+
+  # ------------------------------------------------------ reference posture
+  # Average control level of the insured SMBs behind the frequency anchors.
+  # Only central values are used (they define the denominator of relative vulnerability).
+  ref.mfa_email: {description: Reference MFA-on-email level, dist: pert, low: 0.35, mode: 0.65, high: 0.9, basis: assumption, sources: [cri2023, marsh2025], note: "CRI 2023: ~53% of U.S. SMBs use MFA, 34% require it. Insureds are higher because carriers have required MFA since ~2021; Marsh's larger clients are at 90-100%."}
+  ref.mfa_remote: {description: Reference MFA-on-remote-access level, dist: pert, low: 0.35, mode: 0.70, high: 0.9, basis: assumption, sources: [cri2023, atbay_mfa]}
+  ref.mfa_privileged: {description: Reference privileged-account MFA level, dist: pert, low: 0.2, mode: 0.45, high: 0.7, basis: assumption, sources: [cri2023]}
+  ref.email_security: {description: Reference advanced email security level, dist: pert, low: 0.3, mode: 0.5, high: 0.7, basis: assumption}
+  ref.training: {description: Reference training level, dist: pert, low: 0.2, mode: 0.4, high: 0.6, basis: assumption}
+  ref.patch_sla_days: {description: Reference patch SLA for critical vulnerabilities, dist: pert, low: 14, mode: 30, high: 60, unit: days, basis: assumption, sources: [marsh2023], note: "Marsh: only 24% patch high-severity vulnerabilities within 7 days."}
+  ref.edr: {description: Reference EDR coverage, dist: pert, low: 0.3, mode: 0.5, high: 0.7, basis: assumption}
+  ref.backups: {description: Reference backup resilience level, dist: pert, low: 0.4, mode: 0.6, high: 0.8, basis: assumption, sources: [sophos2024, sophos2025], note: "Sophos 2024: attackers tried to compromise backups in 94% of attacks and succeeded in 57% of attempts."}
+  ref.ir_plan: {description: Reference IR-plan level, dist: pert, low: 0.2, mode: 0.35, high: 0.5, basis: assumption}
+  ref.payment_verification: {description: Reference payment-verification level, dist: pert, low: 0.2, mode: 0.4, high: 0.6, basis: assumption}
+
+  # ---------------------------------------------------- size scaling of severity
+  sev.size_elasticity:
+    description: Elasticity of size-driven loss (business interruption, restoration) to firm size
+    dist: pert
+    low: 0.15
+    mode: 0.25
+    high: 0.45
+    basis: derived
+    sources: [iris2025, iris2022]
+    note: "Slope of log(loss) on log(revenue) across IRIS 2025 revenue tiers: medians 0.25, 95th percentiles 0.43; IRIS 2022 typical loss 0.19. Added in v2 after validation showed linear revenue scaling overstated mid-size ransomware cost 5.4x (see docs/VALIDATION.md)."
+  sev.ref_revenue:
+    description: Annual revenue of the reference insured SMB at which size-driven severity is linear
+    dist: pert
+    low: 3000000
+    mode: 5000000
+    high: 8000000
+    unit: USD
+    basis: assumption
+    sources: [coalition2025]
+    note: "Pairs with freq.ref_employees (~25 staff). Coalition's average ransomware claim is matched at this size."
+
+  # ---------------------------------------------------- ransomware magnitude
+  rw.recovery_days_median_good:
+    description: Median days to full recovery when backups were not compromised
+    dist: pert
+    low: 5.0
+    mode: 8.4
+    high: 11.0
+    unit: days
+    basis: derived
+    sources: [sophos2024, sophos2025]
+    note: "Lognormal fit: Sophos 2025 (16% within a day, 53% within a week) fixes sigma = 1.82; Sophos 2024 says 46% of orgs with intact backups recovered within a week -> median 8.4 days."
+  rw.recovery_days_sigma:
+    description: Lognormal sigma of recovery time
+    dist: pert
+    low: 1.4
+    mode: 1.82
+    high: 2.2
+    basis: derived
+    sources: [sophos2025]
+  rw.downtime_mult_bad_backups:
+    description: Recovery-time multiplier when backups are missing or compromised
+    dist: pert
+    low: 2.0
+    mode: 2.84
+    high: 4.0
+    basis: derived
+    sources: [sophos2024]
+    note: "Sophos 2024: recovered within a week 25% (backups compromised) vs 46% (not); with sigma fixed the medians differ by 2.84x."
+  rw.outage_equivalence:
+    description: Average share of normal operations lost across the recovery period
+    dist: pert
+    low: 0.3
+    mode: 0.5
+    high: 0.8
+    basis: assumption
+    note: "Firms limp along on paper/manual workarounds before full recovery."
+  rw.deferred_revenue_recovered:
+    description: Share of interrupted revenue later recovered (rescheduled patients, delayed orders)
+    dist: pert
+    low: 0.1
+    mode: 0.3
+    high: 0.5
+    basis: assumption
+  rw.response_median:
+    description: Median incident response cost per ransomware event (forensics, breach coach, negotiation)
+    dist: pert
+    low: 30000
+    mode: 60000
+    high: 120000
+    unit: USD
+    basis: assumption
+    sources: [coalition2025, coalition2026]
+    note: "Coalition average ransomware claim $269K-$292K across all components; response is a fraction of that."
+  rw.response_sigma: {description: Lognormal sigma of ransomware response cost, dist: pert, low: 0.6, mode: 0.9, high: 1.2, basis: assumption}
+  rw.restore_per_endpoint_median:
+    description: Median restoration cost per endpoint (rebuild labour, overtime, replacement)
+    dist: pert
+    low: 300
+    mode: 800
+    high: 2000
+    unit: USD/endpoint
+    basis: assumption
+  rw.p_pay_bad_backups:
+    description: Probability of paying the ransom when backups are missing/compromised
+    dist: pert
+    low: 0.50
+    mode: 0.67
+    high: 0.80
+    basis: sourced
+    sources: [sophos2024]
+    note: "Sophos 2024: 67% paid when backups were compromised vs 36% when not."
+  rw.p_pay_good_backups:
+    description: Probability of paying when offline/immutable backups are tested and intact
+    dist: pert
+    low: 0.08
+    mode: 0.20
+    high: 0.36
+    basis: assumption
+    sources: [sophos2024, coveware_2024_2025, coalition2026]
+    note: "Upper bound = Sophos 36% for intact backups (which includes orgs paying only to suppress leaks). Overall payment rates have fallen to 23-26% (Coveware) and 14% (Coalition 2026)."
+  rw.ransom_median_ref:
+    description: Median ransom paid by a firm at the reference revenue
+    dist: pert
+    low: 60000
+    mode: 93000
+    high: 150000
+    unit: USD
+    basis: derived
+    sources: [sophos2025, dbir2025]
+    note: "Sophos 2025: median demand $109,670 for $10M-$50M revenue orgs x 85% average paid/demand. DBIR 2025 median paid $115K (skewed larger)."
+  rw.ransom_ref_revenue: {description: Revenue the ransom median refers to (geometric mid of $10M-$50M), dist: fixed, value: 22360680, unit: USD, basis: derived, sources: [sophos2025]}
+  rw.ransom_revenue_elasticity: {description: Elasticity of ransom size to revenue, dist: pert, low: 0.2, mode: 0.4, high: 0.7, basis: assumption, sources: [coveware_2024_2025], note: "Gangs price demands off victim size; Coveware medians move with median victim size."}
+  rw.ransom_sigma: {description: Lognormal sigma of ransom paid, dist: pert, low: 0.8, mode: 1.1, high: 1.5, basis: assumption, sources: [coveware_2024_2025], note: "Coveware mean/median payment ratios of 2.5-5x imply sigma ~1.4-1.8 across all sizes; narrower within one size band."}
+  rw.p_exfiltration:
+    description: Probability a ransomware event also involves data theft (double extortion)
+    dist: pert
+    low: 0.28
+    mode: 0.50
+    high: 0.70
+    basis: sourced
+    sources: [sophos2025, coalition2026]
+    note: "Sophos 2025: 28% of encrypted orgs also had data stolen. Coalition 2026: dual extortion in 70% of ransomware claims."
+
+  rw.exfil_broad_share:
+    description: When ransomware actors steal data, probability they take a large share of the record base
+    dist: pert
+    low: 0.70
+    mode: 0.85
+    high: 0.95
+    basis: assumption
+    note: "Extortion crews bulk-copy file shares and databases; narrow theft (one mailbox) is the exception."
+
+  # ------------------------------------------------------------- BEC / FTF
+  bec.p_transfer:
+    description: Share of BEC/FTF events in which money is actually transferred to the fraudster
+    dist: pert
+    low: 0.35
+    mode: 0.47
+    high: 0.60
+    basis: derived
+    sources: [coalition2026, coalition2025]
+    note: "Coalition 2026: FTF = 27% of claims, BEC + FTF = 58% -> 0.47. Coalition 2025: 29% of BEC escalated to FTF (lower end)."
+  bec.transfer_median:
+    description: Median fraudulent transfer amount
+    dist: pert
+    low: 40000
+    mode: 50000
+    high: 60000
+    unit: USD
+    basis: sourced
+    sources: [dbir2025]
+    note: "DBIR 2025: median BEC amount settled around $50,000 (based on ~19,000 IC3 complaints)."
+  bec.transfer_sigma:
+    description: Lognormal sigma of transfer amount
+    dist: pert
+    low: 1.2
+    mode: 1.38
+    high: 1.55
+    basis: derived
+    sources: [dbir2025, ic3_2024]
+    note: "IC3 2024 mean = $2,770,151,146 / 21,442 = $129,193; with median $50,000, sigma = sqrt(2 ln(mean/median)) = 1.38."
+  bec.max_share_of_revenue: {description: Cap on one fraudulent transfer as a share of annual revenue, dist: pert, low: 0.05, mode: 0.10, high: 0.20, basis: assumption, note: "A $3M dental clinic does not wire $1M; a manufacturer's supplier payments can be large."}
+  bec.p_reported_fast:
+    description: Probability the victim reports quickly enough for a bank recall / FBI kill-chain attempt
+    dist: pert
+    low: 0.20
+    mode: 0.35
+    high: 0.50
+    basis: assumption
+    sources: [coalition2026, ic3_2024]
+    note: "Coalition 2026: 64% of closed claims resolved with zero out-of-pocket loss; recovered $21.8M."
+  bec.recovery_rate_if_reported:
+    description: Share of funds frozen/recovered when a recall is attempted in time
+    dist: pert
+    low: 0.40
+    mode: 0.66
+    high: 0.85
+    basis: sourced
+    sources: [ic3_2024, ic3_2023]
+    note: "IC3 Recovery Asset Team: 66% success rate (2024), 71% (2023)."
+  bec.response_median: {description: Median response/forensics cost per BEC event, dist: pert, low: 8000, mode: 15000, high: 30000, unit: USD, basis: assumption, sources: [coalition2025, coalition2026], note: "Coalition average BEC claim (no transfer) $27K-$35K."}
+
+  # ------------------------------------------------------------ data breach
+  db.p_broad_exposure: {description: Probability a breach exposes a large share of the record base (vs one mailbox/file), dist: pert, low: 0.2, mode: 0.4, high: 0.6, basis: assumption, sources: [hhs_ocr], note: "Checked against the HHS dental breach-size distribution in docs/VALIDATION.md."}
+  db.response_median: {description: Median breach response cost (forensics, breach counsel), dist: pert, low: 15000, mode: 30000, high: 60000, unit: USD, basis: assumption, sources: [netdiligence2025], note: "NetDiligence SME average total incident cost $264K includes larger firms ($108M average revenue)."}
+  db.response_sigma: {description: Lognormal sigma of breach response cost, dist: pert, low: 0.6, mode: 0.9, high: 1.2, basis: assumption}
+  db.cost_per_record: {description: Notification + call-centre cost per affected person, dist: pert, low: 1.5, mode: 4.0, high: 10.0, unit: USD/record, basis: assumption, sources: [ibm2024], note: "IBM's $169/record is total cost divided by records for large breaches and is not used for SMB variable cost."}
+  db.monitoring_uptake: {description: Share of notified people who enrol in offered credit/ID monitoring, dist: pert, low: 0.03, mode: 0.07, high: 0.15, basis: assumption}
+  db.monitoring_cost: {description: Cost per monitoring enrolment, dist: pert, low: 5, mode: 10, high: 25, unit: USD, basis: assumption}
+  db.p_regulatory: {description: Probability of a regulatory penalty/settlement given a breach at a regulated firm, dist: pert, low: 0.02, mode: 0.06, high: 0.15, basis: assumption, sources: [hhs_ocr], note: "OCR resolves a small fraction of reported breaches with settlements or penalties."}
+  db.regulatory_median: {description: Median regulatory penalty/settlement when one occurs, dist: pert, low: 10000, mode: 40000, high: 150000, unit: USD, basis: assumption}
+  db.p_litigation_10k: {description: Probability of litigation once >=10,000 people are notified (scales with sqrt below that), dist: pert, low: 0.02, mode: 0.08, high: 0.20, basis: assumption}
+  db.litigation_median: {description: Median defence + settlement cost when litigation occurs, dist: pert, low: 50000, mode: 150000, high: 500000, unit: USD, basis: assumption}
+
+  # -------------------------------------------------------------- pricing
+  pricing.loss_ratio:
+    description: Market loss ratio used to translate expected insured loss into an indicated premium
+    dist: pert
+    low: 0.36
+    mode: 0.42
+    high: 0.48
+    basis: sourced
+    sources: [aon2024]
+    note: "Aon analysis of NAIC filings: 2023 U.S. cyber loss ratio 42% (standalone 44%, package 36%). Indicated premium = E[insured loss] / loss ratio."

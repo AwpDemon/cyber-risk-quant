@@ -1,0 +1,282 @@
+# Underwriting-readiness questionnaire.
+#
+# Mirrors the control questions on typical U.S. SMB cyber applications and
+# ransomware supplemental applications (MFA, backups, EDR, patching, email
+# security, training, funds-transfer controls, IR planning). Wording is our own;
+# no carrier's form is reproduced.
+#
+# Per question:
+#   control      model control the answer sets (omit for "scored, not modelled")
+#   weight       share of the readiness score (underwriting emphasis; assumption)
+#   critical     knock-out: below `critical_min` the risk is referred / restricted
+#   options      label -> score (0-1, for the readiness score) and level (0-1, model input)
+#                patching options carry `sla_days` instead of `level` (converted with the KEV curve)
+#   evidence     what a broker/underwriter will ask you to show
+#   note         underwriting / premium narrative, with evidence strength
+#   cost         illustrative annual cost to close the gap (assumption; replace with real quotes)
+
+tiers:
+  - {min_score: 85, name: Preferred, meaning: "Eligible for best available terms; controls are a selling point at renewal."}
+  - {min_score: 70, name: Standard, meaning: "Insurable on standard terms; expect a few subjectivities."}
+  - {min_score: 0, name: Conditional, meaning: "Quotable with subjectivities (controls to implement before or soon after binding) and possibly higher retention."}
+referral_tier:
+  name: Refer / restricted
+  meaning: "At least one knock-out control is missing. Expect declination, a ransomware sublimit or coinsurance, or a requirement to fix before binding."
+
+questions:
+  mfa_email:
+    control: mfa_email
+    section: Identity & access
+    text: Is multi-factor authentication enforced for every user on email and cloud apps (e.g. Microsoft 365 / Google Workspace), including webmail?
+    weight: 12
+    critical: true
+    critical_min: 0.9
+    options:
+      enforced_all: {label: "Yes - enforced for all users (conditional access / security defaults)", score: 1.0, level: 1.0}
+      some_users: {label: "Partly - some users, or MFA optional", score: 0.4, level: 0.5}
+      none: {label: "No", score: 0.0, level: 0.0}
+    evidence:
+      - Identity-provider report showing MFA registration and enforcement for 100% of active users
+      - Screenshot of the conditional-access / security-defaults policy, including legacy-authentication block
+      - List of any exempted accounts (service accounts, break-glass) and why
+    note:
+      strength: strong
+      text: "MFA on email is close to a universal requirement on SMB applications. At-Bay states any policy covering ransomware is highly likely to require MFA and that coverage levels depend on which services are enrolled; Marsh notes firms lacking key controls face non-renewal or ransomware limitations."
+      sources: [atbay_mfa, marsh_hygiene, meyer2023]
+    cost: {fixed: 1500, per_user_month: 0, note: "Usually included in Microsoft 365 / Google Workspace business tiers; cost is mostly setup time."}
+  mfa_remote:
+    control: mfa_remote
+    section: Identity & access
+    text: Is MFA required for all remote access into the network (VPN, RDP gateways, remote-support tools), with no RDP exposed directly to the internet?
+    weight: 12
+    critical: true
+    critical_min: 0.9
+    options:
+      all_mfa: {label: "Yes - MFA on all remote access and no exposed RDP", score: 1.0, level: 1.0}
+      no_remote: {label: "No remote access into the network exists", score: 1.0, level: 1.0}
+      partial: {label: "MFA on VPN, but some remote tools or accounts without MFA", score: 0.3, level: 0.5}
+      none: {label: "No MFA on remote access, or RDP open to the internet", score: 0.0, level: 0.0}
+    evidence:
+      - VPN / remote-access configuration showing MFA enforced for every account
+      - External attack-surface scan (e.g. Shodan/Censys or vendor scan) showing no open RDP (3389) or exposed management interfaces
+      - Inventory of remote-support tools (MSP RMM, ScreenConnect, TeamViewer) and their MFA settings
+    note:
+      strength: strong
+      text: "Remote-access compromise is the most common ransomware entry route in Coveware's 2025 data, and Coalition reports businesses with internet-exposed RDP are 2.5x more likely to file a claim. Missing MFA here is a typical knock-out."
+      sources: [coveware_2024_2025, coalition2024, atbay_mfa]
+    cost: {fixed: 2000, per_user_month: 3, note: "MFA-capable VPN / ZTNA licensing plus setup."}
+  mfa_privileged:
+    control: mfa_privileged
+    section: Identity & access
+    text: Do administrator / privileged accounts (domain admin, cloud global admin, backup console, firewall) require MFA and stay separate from day-to-day user accounts?
+    weight: 8
+    critical: false
+    options:
+      all: {label: "Yes - all privileged accounts, separate admin accounts", score: 1.0, level: 1.0}
+      some: {label: "Some privileged accounts / shared admin logins remain", score: 0.4, level: 0.5}
+      none: {label: "No", score: 0.0, level: 0.0}
+    evidence:
+      - List of privileged accounts with MFA status and owner
+      - Proof backup console and hypervisor admin require MFA and use separate credentials
+    note:
+      strength: moderate
+      text: "Marsh lists privileged access management with EDR and MFA as the three controls insurers most often recommend; ransomware supplementals ask about admin MFA and separate admin accounts."
+      sources: [marsh2023]
+    cost: {fixed: 1500, per_user_month: 0, note: "Configuration time; a PAM tool costs more."}
+  edr:
+    control: edr
+    section: Endpoint
+    text: What share of endpoints and servers run an endpoint detection & response (EDR) tool, and are its alerts monitored?
+    weight: 10
+    critical: false
+    options:
+      full_mdr: {label: "100% coverage, monitored 24/7 (MDR / SOC)", score: 1.0, level: 1.0}
+      high_business_hours: {label: ">=90% coverage, alerts reviewed in business hours", score: 0.8, level: 0.75}
+      partial: {label: "50-90% coverage, or not actively monitored", score: 0.4, level: 0.4}
+      av_only: {label: "Traditional antivirus only", score: 0.1, level: 0.1}
+      none: {label: "No endpoint protection", score: 0.0, level: 0.0}
+    evidence:
+      - EDR console export of protected devices reconciled to the asset inventory (coverage %)
+      - MDR / SOC contract or alert-review procedure with response times
+    note:
+      strength: moderate
+      text: "EDR is among the controls Marsh found most associated with fewer incidents and is one of the three most frequently recommended by insurers; many carriers require it for larger SMBs."
+      sources: [marsh2023, marsh2025, marsh_hygiene]
+    cost: {fixed: 0, per_endpoint_month: 12, note: "EDR with managed monitoring, typical SMB list price range $8-$15 per endpoint per month."}
+  backups:
+    control: backups
+    section: Resilience
+    text: How are critical systems and data backed up?
+    weight: 12
+    critical: true
+    critical_min: 0.75
+    options:
+      immutable_tested: {label: "Immutable or offline copy, separate credentials, full restore tested in the last 12 months", score: 1.0, level: 1.0}
+      immutable_untested: {label: "Immutable or offline copy, but restore not tested in 12 months", score: 0.75, level: 0.75}
+      offsite_online: {label: "Off-site / cloud copy reachable with normal admin credentials", score: 0.35, level: 0.4}
+      local_only: {label: "Local only (NAS / USB on the same network)", score: 0.1, level: 0.15}
+      none: {label: "No regular backups", score: 0.0, level: 0.0}
+    evidence:
+      - Backup job report showing schedule, retention and immutability / air-gap setting
+      - Date and result of the most recent full test restore (with time to restore)
+      - Proof backup credentials are separate from domain admin and protected by MFA
+    note:
+      strength: strong
+      text: "Sophos 2024: when backups were compromised, victims were almost twice as likely to pay (67% vs 36%), recovered within a week half as often (25% vs 46%), and had 8x the median recovery cost. Marsh lists secured, encrypted, tested backups as a key control."
+      sources: [sophos2024, marsh_hygiene]
+    cost: {fixed: 6000, per_endpoint_month: 0, note: "Immutable cloud backup tier plus an annual restore test."}
+  patching:
+    control: patching
+    section: Vulnerability management
+    text: How quickly are critical and internet-facing vulnerabilities (VPNs, firewalls, servers) patched after a fix is released?
+    weight: 8
+    critical: false
+    options:
+      d7: {label: "Within 7 days", score: 1.0, sla_days: 7}
+      d14: {label: "Within 14 days", score: 0.85, sla_days: 14}
+      d30: {label: "Within 30 days", score: 0.65, sla_days: 30}
+      d90: {label: "Within 90 days", score: 0.3, sla_days: 90}
+      none: {label: "No defined process", score: 0.0, sla_days: 365}
+    evidence:
+      - Patch-management (RMM) compliance report for the last 90 days
+      - Evidence that CISA KEV entries for your edge devices were patched (dates)
+    note:
+      strength: moderate
+      text: "In this repo's KEV analysis, half of exploited CVEs published since 2022 were listed as exploited within 7 days of publication. Marsh found 7-day patching associated with ~2x lower incident probability, but only 24% of organisations achieve it."
+      sources: [cisa_kev, nvd, marsh2023]
+    cost: {fixed: 2000, per_endpoint_month: 3, note: "RMM patch automation plus edge-device maintenance windows."}
+  eol_systems:
+    section: Vulnerability management
+    text: Are any end-of-life (no longer vendor-supported) operating systems or applications connected to the network?
+    weight: 3
+    critical: false
+    modifies: patching
+    options:
+      none: {label: "No", score: 1.0, multiplier: 1.0}
+      isolated: {label: "Yes, but isolated / segmented with compensating controls", score: 0.6, multiplier: 0.9}
+      unsupported: {label: "Yes", score: 0.0, multiplier: 0.7}
+    evidence:
+      - Asset inventory with OS versions and support end dates
+    note:
+      strength: moderate
+      text: "Unsupported systems cannot be patched, so applications ask about them directly."
+      sources: []
+    cost: {fixed: 5000, per_endpoint_month: 0, note: "Replace or isolate legacy systems (highly variable)."}
+  email_security:
+    control: email_security
+    section: Email
+    text: Is inbound email scanned by an advanced filter (attachment sandboxing, URL rewriting/time-of-click checks) and is DMARC enforced at quarantine or reject?
+    weight: 6
+    critical: false
+    options:
+      both: {label: "Yes - advanced filtering and DMARC p=quarantine/reject", score: 1.0, level: 1.0}
+      one: {label: "One of the two (or DMARC at p=none)", score: 0.5, level: 0.5}
+      basic: {label: "Built-in basic spam filtering only", score: 0.15, level: 0.15}
+    evidence:
+      - Email-security configuration / licence (e.g. Defender for Office 365 P1+, third-party gateway)
+      - DMARC DNS record (dig TXT _dmarc.yourdomain)
+    note:
+      strength: moderate
+      text: "Email filtering is on Marsh's list of priority controls and email is the entry route for over a third of ransomware incidents in Sophos' data."
+      sources: [marsh_hygiene, sophos2025]
+    cost: {fixed: 500, per_user_month: 3, note: "Advanced filtering add-on licence."}
+  training:
+    control: training
+    section: People
+    text: Do employees receive security-awareness training with phishing simulations?
+    weight: 5
+    critical: false
+    options:
+      quarterly_sims: {label: "Yes - at least quarterly, with phishing simulations", score: 1.0, level: 1.0}
+      annual: {label: "Annual training only", score: 0.4, level: 0.4}
+      none: {label: "No", score: 0.0, level: 0.0}
+    evidence:
+      - Training completion report and phishing-simulation click rates over the last 12 months
+    note:
+      strength: weak
+      text: "Almost every application asks about training, but the strongest effect data (KnowBe4: click rates down 86% after 12 months) comes from a vendor's own simulations."
+      sources: [knowbe4_2025]
+    cost: {fixed: 0, per_user_month: 2, note: "Training + simulation platform."}
+  payment_verification:
+    control: payment_verification
+    section: Financial controls
+    text: Before paying a new payee, changing vendor bank details, or sending a large wire, is the request verified out-of-band (call-back to a known number) and dual-approved?
+    weight: 8
+    critical: false
+    options:
+      documented: {label: "Yes - documented, enforced, dual approval above a threshold", score: 1.0, level: 1.0}
+      informal: {label: "Informally / sometimes", score: 0.4, level: 0.4}
+      none: {label: "No", score: 0.0, level: 0.0}
+    evidence:
+      - Written payment-change / wire procedure with call-back step
+      - Bank dual-authorisation settings and approval threshold
+    note:
+      strength: weak
+      text: "BEC and funds-transfer fraud are 58-60% of Coalition's claims. Social-engineering cover is typically sublimited and applications ask about call-back verification, but no public study quantifies the effect."
+      sources: [coalition2025, coalition2026]
+    cost: {fixed: 500, per_user_month: 0, note: "Process change and staff briefing."}
+  ir_plan:
+    control: ir_plan
+    section: Response
+    text: Is there a written incident response plan (roles, insurer hotline, breach counsel, IR firm, backup restore steps) tested by a tabletop exercise in the last 12 months?
+    weight: 6
+    critical: false
+    options:
+      tested: {label: "Yes - written and tested in the last 12 months", score: 1.0, level: 1.0}
+      written: {label: "Written but not tested", score: 0.5, level: 0.5}
+      none: {label: "No", score: 0.0, level: 0.0}
+    evidence:
+      - Incident response plan document with contact list
+      - Tabletop exercise date, participants and after-action notes
+    note:
+      strength: moderate
+      text: "Marsh's 2025 study ranks IR planning among the top control areas; IBM reports lower average breach costs for firms with an IR team and tested plan (correlational)."
+      sources: [marsh2025, ibm2024]
+    cost: {fixed: 5000, per_user_month: 0, note: "Plan template + facilitated tabletop."}
+  asset_inventory:
+    section: Governance (scored, not modelled)
+    text: Is there a maintained inventory of hardware and software assets?
+    weight: 3
+    critical: false
+    options:
+      automated: {label: "Yes, automated and current", score: 1.0}
+      partial: {label: "Partial / manual", score: 0.5}
+      none: {label: "No", score: 0.0}
+    evidence: [Asset inventory export with last-seen dates]
+    note: {strength: weak, text: "Underpins every other answer (EDR coverage %, patch compliance), so underwriters ask for it, but its direct loss effect is not quantifiable from public data.", sources: []}
+    cost: {fixed: 1000, per_endpoint_month: 0}
+  encryption:
+    section: Governance (scored, not modelled)
+    text: Are laptops and mobile devices full-disk encrypted?
+    weight: 3
+    critical: false
+    options:
+      enforced: {label: "Yes, enforced by policy", score: 1.0}
+      partial: {label: "Some devices", score: 0.5}
+      none: {label: "No", score: 0.0}
+    evidence: [MDM / BitLocker / FileVault compliance report]
+    note: {strength: moderate, text: "Encrypted lost devices generally fall under HIPAA and state breach-law safe harbours. Theft/loss is part of the non-malicious breach share the model does not change, so this answer is scored but not simulated.", sources: [hhs_ocr]}
+    cost: {fixed: 1000, per_endpoint_month: 0}
+  vendor_access:
+    section: Governance (scored, not modelled)
+    text: Do third parties with remote access (MSP, software vendors) use MFA and named accounts, and is their access reviewed?
+    weight: 3
+    critical: false
+    options:
+      all: {label: "Yes", score: 1.0}
+      partial: {label: "Partly", score: 0.5}
+      none: {label: "No / unknown", score: 0.0}
+    evidence: [List of vendors with remote access and their MFA status]
+    note: {strength: moderate, text: "DBIR 2025: third-party involvement in 30% of breaches, double the prior year.", sources: [dbir2025]}
+    cost: {fixed: 1000, per_endpoint_month: 0}
+  logging:
+    section: Governance (scored, not modelled)
+    text: Are security logs (cloud audit logs, firewall, VPN, EDR) retained for at least 90 days?
+    weight: 2
+    critical: false
+    options:
+      retained_90d: {label: "Yes", score: 1.0}
+      none: {label: "No / unknown", score: 0.0}
+    evidence: [Log-retention settings for Microsoft 365 / Google audit logs and firewall]
+    note: {strength: weak, text: "Without logs, forensics takes longer and breach scope often must be assumed worst-case (notify everyone).", sources: []}
+    cost: {fixed: 1000, per_endpoint_month: 0}

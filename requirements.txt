@@ -1,0 +1,9 @@
+# Pinned runtime + app dependencies (tested on Python 3.12)
+numpy==2.5.3
+scipy==1.18.1
+pandas==3.0.6
+matplotlib==3.11.2
+openpyxl==3.1.5
+PyYAML==6.0.3
+requests==2.34.2
+streamlit==1.65.0
