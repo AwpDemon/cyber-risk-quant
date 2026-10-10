@@ -79,6 +79,14 @@ def _viewstate(html: str) -> str:
     return re.search(r'name="javax.faces.ViewState"[^>]*value="([^"]+)"', html).group(1)
 
 
+def _csv_button(html: str, pattern: str) -> str:
+    found = re.findall(pattern, html)
+    if not found:
+        raise RuntimeError("HHS breach portal layout changed: CSV export button not found. "
+                           "Export manually from https://ocrportal.hhs.gov/ocr/breach/breach_report.jsf into data/raw/.")
+    return found[0]
+
+
 def _multipart(d: dict[str, str]) -> dict:
     return {k: (None, v) for k, v in d.items()}
 
@@ -100,7 +108,7 @@ def download_hhs(s: requests.Session) -> list[Path]:
     csv_re = r"\{'(ocrForm:[^']+)'[^>]*><img id=\"[^\"]+\" src=\"/ocr/images/icons/csv"
 
     # Tab 0: breaches reported in the last 24 months (still under investigation)
-    btn = re.findall(csv_re, page.text)[0]
+    btn = _csv_button(page.text, csv_re)
     r = s.post(HHS_BASE + "breach_report_hip.jsf",
                files=_multipart({"ocrForm": "ocrForm", "javax.faces.ViewState": _viewstate(page.text), btn: btn}), timeout=120)
     r.raise_for_status()
@@ -119,7 +127,7 @@ def download_hhs(s: requests.Session) -> list[Path]:
                headers={"Faces-Request": "partial/ajax", "X-Requested-With": "XMLHttpRequest"})
     m = re.search(r"ViewState[^>]*>\s*<!\[CDATA\[([^\]]+)", t.text)
     vs = m.group(1) if m else vs
-    btn = re.findall(csv_re, t.text)[0]
+    btn = _csv_button(t.text, csv_re)
     time.sleep(2)
     r = s.post(HHS_BASE + "breach_report_hip.jsf",
                files=_multipart({"ocrForm": "ocrForm", "javax.faces.ViewState": vs, btn: btn, f"{tab_id}_activeIndex": "1"}), timeout=300)
