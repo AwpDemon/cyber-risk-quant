@@ -7,7 +7,7 @@ name = "cyber-risk-quant"
 version = "0.2.0"
 description = "FAIR-style cyber risk quantification and cyber-insurance underwriting-readiness tool for SMBs"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [{ name = "Ali Askari" }]
 dependencies = [
